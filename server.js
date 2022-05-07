@@ -224,6 +224,47 @@ app.get('/deleteuser', (req, res) => {
     });
 });
 
+app.get('/deletelocation', (req, res) =>{
+    let delete_name = 'Tsing Yi';
+    let delete_id;
+    find_loc = Location.findOne({location_name: delete_name});
+    find_loc.exec((err, e) => {
+        if (err)
+            res.send(err);
+        else
+        {
+            delete_id = e.location_id;
+            find_loc = Location.findOne({location_name: delete_name});
+            find_loc.deleteMany((err, e) => {
+                if (err)
+                    res.send(err);
+                else
+                {
+                    UserLocation.find({location_id: delete_id}).deleteMany((err, e) => {
+                        if (err)
+                            res.send(err);
+                        else
+                        {
+                            LocationComment.find({location_id: delete_id}).deleteMany((err, e) => {
+                                if (err)
+                                    res.send(err);
+                                else
+                                {
+                                    LocationTime.find({location_id: delete_id}).deleteMany((err, e) => {
+                                        if (err)
+                                            res.send(err);
+                                        else
+                                            res.send('Location Remove Success!');
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
 
 const cors = require('cors'); app.use(cors());
 
