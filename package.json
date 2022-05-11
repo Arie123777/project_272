@@ -1,6 +1,7 @@
 {
   "name": "project_272",
   "version": "0.1.0",
+  "type": "commonjs",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -9,6 +10,7 @@
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "mongoose": "^6.3.2",
+    "node-fetch": "^2.6.7",
     "node.js": "0.0.1-security",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
