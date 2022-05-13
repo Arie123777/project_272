@@ -32,7 +32,6 @@ const UserSchema = mongoose.Schema({
     user_rank: {type: Number, required: true}
 });
 const UserLocationSchema = mongoose.Schema({
-    user_location_id: {type: Number, required: true, unique: true},
     user_id: {type: Number},
     location_id: {type: Number, required: true}
 });
@@ -124,6 +123,20 @@ app.get('/location', (req, res) => {
     });
 });
 
+app.get('/locationidname', (req, res) => {
+    Location.find().select({location_id:1, location_name:1}).exec((err,e)=>{
+        if (err)
+        {
+            res.status(404);
+            res.send(err);
+        }
+        else{
+            res.status(200);
+            res.json(e);
+        }
+    });
+});
+
 app.get('/locationtime', (req, res) => {
     LocationTime.find().exec((err,e)=>{
         if (err)
@@ -150,9 +163,8 @@ app.post('/userlogin', (req, res) => {
         }
         else if (e == null)
         {
-            console.log('This user doesn not exist!');
             res.status(404);
-            res.send('error');
+            res.send('This user does not exist!');
         }
         else {
             bcrypt.compare(login_password, e.user_pwd ,function(err,success){
@@ -166,15 +178,13 @@ app.post('/userlogin', (req, res) => {
                     if (success)
                     {
                         res.cookie('login', {id: e.user_id, name:e.user_name}, {maxAge: 1800000, domain:"localhost", httpOnly:false});
-                        console.log('success');
                         res.status(200);
                         res.send(e);
                     }
                     else
                     {
-                        console.log('wrong password!');
                         res.status(404);
-                        res.send('error');
+                        res.send('Wrong password!');
                     }
                 }
              })
@@ -584,6 +594,37 @@ app.post('/changepassword', (req, res) => {
     }
 });
 
+app.put('/addfav', (req, res) => {
+    if (req.cookies == null)
+    {
+        res.status(400);
+        res.send("You have not logined in!");
+    }
+    else
+    {
+        let fav_array = [];
+        for (i=0; i<req.body['my_fav'].length; i++)
+            fav_array.push({
+                user_id: req.cookies['login']['id'],
+                location_id: req.body['my_fav'][i]
+            });
+        UserLocation.find({user_id: req.cookies['login']['id']}).deleteMany((err, e) => {
+            if (err)
+            {
+                res.status(404);
+                res.send("Error!");
+            }
+            else
+            {
+                UserLocation.insertMany(fav_array).then((e) => {
+                    res.status(200);
+                    res.send("User favourite success!");
+                });
+            }
+        });
+    }
+});
+
 app.get('/userfav', (req, res) => {
     if (req.cookies == null)
     {
@@ -607,6 +648,7 @@ app.get('/userfav', (req, res) => {
         });
     }
 });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
