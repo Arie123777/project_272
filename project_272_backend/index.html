@@ -27,7 +27,7 @@
         </form>
 
         <form>
-            Another testis: New User <br>
+            New User  <br>
             Username: <input type="text" name="username"> <br>
             Password: <input type="password" name="pwd"> <br>
             <button type="button" onclick="newUser()">Register</button>
@@ -100,6 +100,10 @@
         </form>
         <form name="favlocation" id="myloc">
             <button type = "button" onclick="show_location()">Get your data</button> <br>
+        </form>
+        <form name="favtime" id="mytime">
+            <button type = "button" onclick="show_favourite_time()">Get your favourite location's data</button> <br>
+            <div id="time_result"></div>
         </form>
         <script> /*
             function processShow()
@@ -324,6 +328,26 @@
                     for (x = 0; x < e.length; x++)
                     {
                         document.querySelector('#loc'+e[x]['location_id']).checked = true;
+                    }
+                });
+            }
+
+            function show_favourite_time()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'},
+                };
+                fetch('http://localhost:3000/favtime', myrequest).then((e) => e.text()).then((e) => {
+                    if (e == "You have not logined in yet!")
+                        console.log(e);
+                    else
+                    {
+                        document.querySelector("#time_result").innerHTML = "";
+                        e = eval(e);
+                        for (x=0; x<e.length; x++)
+                        document.querySelector("#time_result").innerHTML += 'Name: ' + e[x].location_name + '\tTemperature: ' + e[x].temp + 
+                            '\tRelative Humidity:  ' + e[x].relative_humidity + '\tWind Direction: ' + e[x].wind_dir + 'Wind Speed: ' +  e[x].wind_speed + '\tWind Gust: ' + e[x].wind_gust + '<br>';
                     }
                 });
             }

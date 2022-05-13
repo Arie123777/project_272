@@ -649,6 +649,51 @@ app.get('/userfav', (req, res) => {
     }
 });
 
+app.get('/favtime', (req, res) => {
+    if (req.cookies['login'] == null)
+    {
+        res.status(404);
+        res.send("You have not logined in yet!")
+    }
+    else
+    {
+        let user_id = req.cookies['login']['id'];
+        UserLocation.find({user_id: user_id}).sort({location_id: 1}).exec((err, e) => {
+            if (err)
+            {
+                res.status(404);
+                res.send("Error!")
+            }
+            else
+            {
+                let loc_id = [];
+                let loc_name = [];
+                for (x=0; x<e.length; x++)
+                {
+                    loc_id.push(e[x]['location_id']);
+                }
+                Location.find({location_id: {$in: loc_id}}).sort({location_id: 1}).exec((err, e) => {
+                    for (x=0; x<e.length; x++)
+                        loc_name.push(e[x]['location_name']);
+                    LocationTime.find({location_id: {$in: loc_id}}).sort({location_id: 1}).exec((err, e) => {
+                        let result = JSON.parse(JSON.stringify(e));
+                        for (x=0; x<e.length; x++)
+                        {                            
+                            result[x]['location_name'] = loc_name[x];
+                            console.log(loc_name[x]);
+                            console.log(result[x]);
+                        }
+                        res.status(200);
+                        res.send(result);
+                    });
+                });
+            }
+        });
+    }
+});
 
+app.get('/loccomment/:location', (req, res) => {
+
+});
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
