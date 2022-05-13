@@ -1,0 +1,289 @@
+<!--Name: Lai Man Hin   SID: 1155136167-->
+<html>
+    <body>
+        <h1>My new Event</h1>
+        <form action="http://localhost:3000/event" method="post">
+            <input type="text" name="eventName" placeholder="Event name ">
+            <input type="text" name="eventLoc" placeholder="Event location ">
+            <input type="text" name="eventQuota" placeholder="Event quota ">
+            <input type="submit" value="submit">
+        </form>
+        <br>
+        <h1>Edit Event</h1>
+        <form name="edit">
+            Event ID: <br> <input type="text" name="eventId"> <br>
+            Event Name: <br> <input type="text" name="eventName2"> <br>
+            Event Location ID: <br> <input type="text" name="eventLoc2"> <br>
+            Event Quota: <br> <input type="text" name="eventQuota2">
+            <br>
+            <button type="button">Show Details</button>
+            <button type="button">Submit</button>
+            <p id="response"></p>
+        </form>
+
+        <form name="return_me">
+            There should have my testis! <br> <input type="text" name="show_here">
+            <button type="button" onclick="showLocation()">Show!</button>
+        </form>
+
+        <form>
+            Another testis: New User <br>
+            Username: <input type="text" name="username"> <br>
+            Password: <input type="password" name="pwd"> <br>
+            <button type="button" onclick="newUser()">Register</button>
+            <p id="register_result"></p>
+        </form>
+
+        <form>
+            Weather Information: <input type="text" name="weather_info"> <br>
+            <button type="button" onclick="update_weather()">Update!</button> 
+        </form>
+
+        <form name="login">
+            Try login here! <br>
+            Username: <input type="text" name="lusername"> <br>
+            Password: <input type="password" name="lpassword">
+            <button type="button" onclick="user_login()">Login</button>
+            <p id="login_result">Result Shown here</p>
+        </form>
+
+        <form name="delloc">
+            Which location you want to delete? <input type="text" name="dellocation"> <br>
+            <button type="button" onclick="loc_delete()">Delete!</button>
+        </form>
+
+        <form name="delusr">
+            Which user you want to delete? <input type="text" name="deluser"> <br>
+            <button type="button" onclick="user_delete()"> Delete!</button>
+        </form>
+
+        <form name="newlocation">
+            Which location you want to create? <br>
+            Location ID: <input type="text" name="new_location_id"> <br>
+            Location Name: <input type="text" name="new_location_name"> <br>
+            Latitude: <input type="text" name="new_latitude"> <br>
+            Longtitude: <input type="text" name="new_longtitude"> <br>
+            <button type="button" onclick="new_location()">New Location!</button>
+            <p id="add_location_result">Adding Location Result will be shown here</p>
+        </form>
+
+        
+        
+        <form name="showinfo">
+            Which information you want to show? <br>
+            <button type="button" onclick="showLocation()">Location Plz!</button> <br>
+            <!--<button type="button" onclick="showUser()">User Plz!</button> <br>
+            <button type="button" onclick="showUserLocation()">UserLocation Plz!</button> <br>
+            <button type="button" onclick="showLocationTime()">LocationTime Plz!</button> <br>
+            <button type="button" onclick="showLocationComment()">LocationComment Plz!</button> <br> -->
+            <div id="table_result">Your result will be shown here</div>
+        </form>
+
+        <form name="logout">
+            <button type="button" onclick="user_logout()">Logout!</button>
+            <p id="logout_info"></p>
+        </form>
+
+        <form name="comments">
+            Your location here: <input type="text" name="comment_location"> <br>
+            Your Comment: <input type="text" name="comment_content"> <br>
+            <button type="button" onclick="comment()">Comment!</button> <br>
+            <p id="comment_result"></p>
+        </form>
+
+        <form name="changepwd">
+            Your old password: <input type="password" name="oldpassword"> <br>
+            Your new password: <input type="password" name="newpassword"> <br> 
+            New password, again: <input type="password" name="newpasswordagain"> <br>
+            <button type="button" onclick="change_password()">Confirm</button><br>
+            <p id="changepwd_result"></p>
+        </form>
+        <!--<form name="favlocation">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <input type="checkbox" id="accept" name="accept" value="yes">
+            <button type = "button" onclick="">Get your data</button><button type="button" onclick="Sub">Submit</button>
+        </form> -->
+        <script> /*
+            function processShow()
+            {
+                document.querySelector("#response").innerHTML = "";
+                const myrequest = {
+                    method: 'GET',
+                    headers:{'Content-Type':'application/json'}
+                };
+                fetch('http://localhost:3000/event/' + document.querySelector('[name = "eventId"]').value, myrequest).then(e => e.text()).then(e => {
+                    let update = JSON.parse(e);
+                    document.querySelector('[name = "eventName2"]').value = update.name;
+                    document.querySelector('[name = "eventLoc2"]').value = update.loc.locId;
+                    if (!isNaN(update.quota))
+                        document.querySelector('[name = "eventQuota2"]').value = update.quota;
+                });
+            }
+            function processEdit()
+            {   
+                const myrequest = {
+                    method: 'PUT',
+                    headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({eventId: document.querySelector('[name = "eventId"]').value, 
+                eventName: document.querySelector('[name = "eventName2"]').value,
+                eventLoc: document.querySelector('[name = "eventLoc2"]').value,
+                eventQuota: document.querySelector('[name = "eventQuota2"]').value})
+                };
+                fetch('http://localhost:3000/event/' + document.querySelector('[name = "eventId"]').value, myrequest).then((e) => document.querySelector("#response").innerHTML = "Update Success!");
+            }
+*/
+            function showLocation()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers:{'Content-Type':'application/json'}
+                };
+                fetch('http://localhost:3000/location/', myrequest).then((e) => e.text()).then((e) => document.querySelector('[name = "show_here"]').value = e);
+            }
+
+            function newUser()
+            {
+                const myrequest = {
+                    method: "POST",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({username: document.querySelector('[name = "username"]').value,
+                        password: document.querySelector('[name = "pwd"]').value})
+                };
+                fetch('http://localhost:3000/newuser/', myrequest).then((e) => e.text()).then((e) => document.querySelector("#register_result").innerHTML = e);
+            }
+
+            function update_weather()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'},
+                };
+                fetch('http://localhost:3000/updateweather/', myrequest).then((e) => e.text()).then((e) => document.querySelector('[name = "weather_info"]').value = e);
+            }
+
+            function user_login()
+            {
+                const myrequest = {
+                    method: "POST",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({username: document.querySelector('[name= "lusername"]').value,
+                    password: document.querySelector('[name = "lpassword"]').value})
+                };
+                fetch('http://localhost:3000/userlogin/', myrequest).then((e) => e.text()).then((e) => {if (e != "error") {result = JSON.parse(e); document.querySelector('#login_result').innerHTML = "You login with Rank " + result.user_rank} else document.querySelector('#login_result').innerHTML = "Username/Password Wrong"});
+            }
+
+            function loc_delete()
+            {
+                const myrequest = {
+                    method: "DELETE",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({location_name: document.querySelector('[name="dellocation"]').value})
+                };
+                fetch('http://localhost:3000/deletelocation', myrequest).then((e) => e.text()).then((e) => document.querySelector('[name="dellocation"]').value = e);
+            }
+
+            function user_delete()
+            {
+                const myrequest = {
+                    method: "DELETE",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({user_name: document.querySelector('[name="deluser"]').value})
+                };
+                fetch('http://localhost:3000/deleteuser', myrequest).then((e) => e.text()).then((e) => document.querySelector('[name="deluser"]').value = e);
+            }
+
+            function new_location()
+            {
+                const myrequest = {
+                    method: "POST",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({location_id: document.querySelector('[name = "new_location_id"]').value,
+                        location_name: document.querySelector('[name = "new_location_name"]').value,
+                        latitude: document.querySelector('[name = "new_latitude"]').value,
+                        longtitude: document.querySelector('[name = "new_longtitude"]').value,
+                    })
+                };
+                fetch('http://localhost:3000/newlocation/', myrequest).then((e) => e.text()).then((e) => document.querySelector("#add_location_result").innerHTML = e);
+            }
+
+            function showLocation()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'}
+                };
+                fetch('http://localhost:3000/location', myrequest).then((e) => e.text()).then((e) => {
+                    let tb = document.createElement('table');
+                    e = eval(e);
+                    for (x=0; x<e.length; x++)
+                    {
+                        let y = 0;
+                        let row = tb.insertRow(x);
+                        tr = e[x];
+                        for (td in tr)
+                        {
+                            row.insertCell(y).innerHTML = (tr[td]);
+                            y++;
+                        }
+                    }
+                    document.querySelector("#table_result").append(tb);
+                });
+            }
+
+            function user_logout()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'}
+                };
+                fetch('http://localhost:3000/logout', myrequest).then((e) => e.text()).then((e) => {
+                    document.querySelector('#logout_info').innerHTML = e;
+                })
+            }
+
+            function comment()
+            {
+                const myrequest = {
+                    method: "POST",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        location_name: document.querySelector('[name = "comment_location"]').value,
+                        content: document.querySelector('[name = "comment_content"]').value
+                    })
+                };
+                fetch('http://localhost:3000/addcomment', myrequest).then((e) => e.text()).then((e) => {
+                    document.querySelector('[name = "comment_location"]').value = "",
+                    document.querySelector('[name = "comment_content"]').value = "";
+                    document.querySelector('#comment_result').innerHTML = e;
+                });
+            }
+
+            function change_password()
+            {
+                if (document.querySelector('[name = "newpassword"]').value != document.querySelector('[name = "newpasswordagain"]').value)
+                    document.querySelector('#changepwd_result').innerHTML = "Please type your new password again";
+                else
+                {
+                    const myrequest = {
+                        method: "POST",
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify({
+                            old_password: document.querySelector('[name = "oldpassword"]').value,
+                            new_password: document.querySelector('[name = "newpassword"]').value
+                        })
+                    };
+                    fetch('http://localhost:3000/changepassword', myrequest).then((e) => e.text()).then((e) => {
+                        document.querySelector('#changepwd_result').innerHTML = e;
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

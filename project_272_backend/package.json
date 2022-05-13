@@ -1,0 +1,22 @@
+{
+  "name": "project_272_backend",
+  "version": "1.0.0",
+  "description": "CSCI2720 Group 25 Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "arie123777",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.3",
+    "node-fetch": "^2.6.7",
+    "node.js": "0.0.1-security",
+    "trusted-types": "^2.0.0"
+  }
+}
