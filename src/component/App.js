@@ -6,26 +6,24 @@
  * Lam Chun Sang 1155136170
  * Lee Ka Sin 1155144294
  * He Yauhi 1155143159
- * Fan Dezen 1155143810
  */
 
 import React from "react";
 import { HashRouter as Router, Switch } from "react-router-dom";
 
-import Resolver from "../screens/Resolver";
+import UserLoginScreen from "../panel/user/UserLoginScreen";
+import UserHomeScreen from "../panel/user/UserHomeScreen";
+import UserMapScreen from "../panel/user/UserMapScreen";
+import UserFavouriteScreen from "../panel/user/UserFavouriteScreen";
+import AboutScreen from "../panel/user/AboutScreen";
 
-import UserLoginScreen from "../screens/user/UserLoginScreen";
-import UserHomeScreen from "../screens/user/UserHomeScreen";
-import UserMapScreen from "../screens/user/UserMapScreen";
-import UserFavouriteScreen from "../screens/user/UserFavouriteScreen";
-import AboutScreen from "../screens/user/AboutScreen";
+import AdminUserCRUD from "../panel/admin/AdminUserCRUD";
+import AdminLocCRUD from "../panel/admin/AdminLocCRUD";
+import AdminUpdate from "../panel/admin/AdminUpdate";
 
-import AdminUserCRUD from "../screens/admin/AdminUserCRUD";
-import AdminLocCRUD from "../screens/admin/AdminLocCRUD";
-import AdminUpdate from "../screens/admin/AdminUpdate";
-
-import { Provider as AuthProvider } from "../context/AuthContext";
 import { Provider as GameProvider } from "../context/GameContext";
+import { Provider as AuthProvider } from "../context/AuthContext";
+import Resolver from "../panel/Resolver";
 
 const App = () => {
   return (

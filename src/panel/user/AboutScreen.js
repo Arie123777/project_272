@@ -6,7 +6,6 @@
  * Lam Chun Sang 1155136170
  * Lee Ka Sin 1155144294
  * He Yauhi 1155143159
- * Fan Dezen 1155143810
  */
 import React from "react";
 import {
@@ -392,7 +391,7 @@ const AboutScreen = () => {
             UserSchema is used to store comments from users. It contains
             information like user_id, user_name, user_pwd and user_rank.
           </Typography>
-          <img src={image22} className={classes.image} />
+          {/* <img src={image22} className={classes.image} /> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -408,7 +407,7 @@ const AboutScreen = () => {
             marked as favourite by users. It contains information like
             user_location_id, user id and location_id.
           </Typography>
-          <img src={image23} className={classes.image} />
+          {/* <img src={image23} className={classes.image} /> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -421,7 +420,7 @@ const AboutScreen = () => {
             LocationSchema is used to store the details of locations. It
             contains location_id, location_name,latitude,longitude.
           </Typography>
-          <img src={image24} className={classes.image} />
+          {/* <img src={image24} className={classes.image} /> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -438,7 +437,7 @@ const AboutScreen = () => {
             or admin), longitude and latitude (which are used to locate the home
             location of the user).
           </Typography>
-          <img src={image25} className={classes.image} />
+          {/* <img src={image25} className={classes.image} /> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
@@ -448,7 +447,7 @@ const AboutScreen = () => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.expansionContentContainer}>
           <Typography>The ER Diagram is shown below.</Typography>
-          <img src={image26} className={classes.image} />
+          {/* <img src={image26} className={classes.image} /> */}
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
