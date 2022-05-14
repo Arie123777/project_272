@@ -6,7 +6,6 @@
  * Lam Chun Sang 1155136170
  * Lee Ka Sin 1155144294
  * He Yahui 1155143159
- * Fan Dezen 1155143810
  */
 
 import React, { useState, useEffect } from "react";
