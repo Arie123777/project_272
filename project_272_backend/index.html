@@ -1,7 +1,7 @@
 <!--Name: Lai Man Hin   SID: 1155136167-->
 <html>
     <body>
-        <h1>My new Event</h1>
+        <!--<h1>My new Event</h1>
         <form action="http://localhost:3000/event" method="post">
             <input type="text" name="eventName" placeholder="Event name ">
             <input type="text" name="eventLoc" placeholder="Event location ">
@@ -20,14 +20,14 @@
             <button type="button">Submit</button>
             <p id="response"></p>
         </form>
-
+    -->
         <form name="return_me">
-            There should have my testis! <br> <input type="text" name="show_here">
+            There should have my tests! <br> <input type="text" name="show_here">
             <button type="button" onclick="showLocation()">Show!</button>
         </form>
 
         <form>
-            Another testis: New User <br>
+            New User  <br>
             Username: <input type="text" name="username"> <br>
             Password: <input type="password" name="pwd"> <br>
             <button type="button" onclick="newUser()">Register</button>
@@ -98,18 +98,13 @@
             <button type="button" onclick="change_password()">Confirm</button><br>
             <p id="changepwd_result"></p>
         </form>
-        <!--<form name="favlocation">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <input type="checkbox" id="accept" name="accept" value="yes">
-            <button type = "button" onclick="">Get your data</button><button type="button" onclick="Sub">Submit</button>
-        </form> -->
+        <form name="favlocation" id="myloc">
+            <button type = "button" onclick="show_location()">Get your data</button> <br>
+        </form>
+        <form name="favtime" id="mytime">
+            <button type = "button" onclick="show_favourite_time()">Get your favourite location's data</button> <br>
+            <div id="time_result"></div>
+        </form>
         <script> /*
             function processShow()
             {
@@ -283,6 +278,78 @@
                         document.querySelector('#changepwd_result').innerHTML = e;
                     });
                 }
+            }
+
+            function show_location()
+            {
+                document.querySelector('#myloc').innerHTML = '<button type = "button" onclick="show_location()">Get your data</button>      <button type = "button" onclick="submit_location()">Submit!</button><br><p id="fav_result"></p>';
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'}
+                };
+                fetch('http://localhost:3000/locationidname', myrequest).then((e) => e.text()).then((e) => {
+                    e = eval(e);
+                    for (x = 0; x < e.length; x++)
+                        document.querySelector('#myloc').innerHTML+=  e[x]['location_name'] + '<input type="checkbox" name="locations" id="loc' + e[x]['location_id']+ '"><br>';
+                    show_favourite();
+                });
+            }
+
+            function submit_location()
+            {
+                let count = 1;
+                let inputarr = [];
+                while (document.querySelector('#loc'+count)!=null)
+                {
+                    if (document.querySelector('#loc'+count).checked)
+                        inputarr.push(count);
+                    count++;
+                }
+                const myrequest = {
+                    method: "PUT",
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        my_fav: inputarr
+                    })
+                };
+                fetch('http://localhost:3000/addfav', myrequest).then((e) => e.text()).then((e) => {
+                    document.querySelector("#fav_result").innerHTML = "Done!";
+                });
+            }
+
+            function show_favourite()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'},
+                };
+                fetch('http://localhost:3000/userfav', myrequest).then((e) => e.text()).then((e) => {
+                    e = eval(e);
+                    for (x = 0; x < e.length; x++)
+                    {
+                        document.querySelector('#loc'+e[x]['location_id']).checked = true;
+                    }
+                });
+            }
+
+            function show_favourite_time()
+            {
+                const myrequest = {
+                    method: "GET",
+                    headers: {'Content-Type':'application/json'},
+                };
+                fetch('http://localhost:3000/favtime', myrequest).then((e) => e.text()).then((e) => {
+                    if (e == "You have not logined in yet!")
+                        console.log(e);
+                    else
+                    {
+                        document.querySelector("#time_result").innerHTML = "";
+                        e = eval(e);
+                        for (x=0; x<e.length; x++)
+                        document.querySelector("#time_result").innerHTML += 'Name: ' + e[x].location_name + '\tTemperature: ' + e[x].temp + 
+                            '\tRelative Humidity:  ' + e[x].relative_humidity + '\tWind Direction: ' + e[x].wind_dir + 'Wind Speed: ' +  e[x].wind_speed + '\tWind Gust: ' + e[x].wind_gust + '<br>';
+                    }
+                });
             }
         </script>
     </body>
