@@ -1,0 +1,821 @@
+﻿<!--Group 25
+    He Yahui 1155143159
+    Lai Man Hin 1155136167
+    Lam Chun Sang 1155136170
+    Lee Ka Sin 1155144294-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Weathering With Me</title>
+    <!--script src="./script.js"></!-script-->
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        .wf1 {
+            background-color: white;
+            width: 30%;
+            height: 250px;
+            margin: auto;
+            border: 0px solid #DDD;
+            border-radius: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .wf2 {
+            background-color: white;
+            width: 90%;
+            height: 1200px;
+            margin: auto;
+            border: 0px solid #DDD;
+            border-radius: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .wf3 {
+            background-color: white;
+            width: 30%;
+            height: 700px;
+            margin: auto;
+            border: 0px solid #DDD;
+            border-radius: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Weathering With Me</h1>
+    <div id="1" align="center">
+        <span class="wf1" style="display: inline-block">
+            <br>
+            <h2>Register</h2>
+            <form>
+                Username: <input type="text" name="username"> <br><br>
+                Password: <input type="password" name="pwd"> <br><br>
+                <button type="button" onclick="newUser()">Register</button>
+                <br><br>
+            </form>
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="wf1" style="display: inline-block">
+            <br>
+            <h2>Login</h2>
+            <form>
+                Username: <input type="text" name="lusername"> <br><br>
+                Password: <input type="password" name="lpassword"> <br><br>
+                <button type="button" onclick="user_login()">Login</button>
+                <br><br>
+            </form>
+        </span>
+    </div>
+
+    <div id="2" class="wf1" style="display:none">
+        <br><br><br>
+        <h2>Registered successfully!</h2>
+        <button type="button" onclick="login_now()">Login</button>
+    </div>
+
+    <div id="3" class="wf2" style="display:none">
+        <br>
+        <h2 id="nm"></h2>
+        <button type="button" onclick="changepw()">Change Password</button>
+        <button type="button" onclick="user_logout()">Logout</button>
+        <br><br>
+        <button type="button" onclick="showLocation_1()">Show all locations</button>
+        <button type="button" onclick="hide_location_1()">Hide</button><br><br>
+        Sort by: <button type="button" onclick="sortId()">ID</button>
+        <button type="button" onclick="sortName()">Name</button>
+        <button type="button" onclick="sortLatitude()">Latitude</button>
+        <button type="button" onclick="sortLongtitude()">Longtitude</button>
+        <form name="Search">
+            <h3>Search by location name </h3>
+            Your keyword: <input type="text" name="searchname">
+            <button type="button" onclick="searchName()">Search</button> <br>
+        </form>
+        <div id="rs1" align="center"><div id="table_result1"></div></div><br><br>
+        <form name="favlocation" id="myloc">
+            <div id="myloc_button"><button type="button" onclick="show_location()">Favourite location selection</button></div> <br>
+            <div id="myloc_checkbox"></div>
+        </form>
+        <br>
+        <form name="favtime" id="mytime">
+            <button type="button" onclick="show_favourite_time()">Favourite location data</button> <br>
+            <div id="time_result"></div>
+        </form>
+    </div>
+
+    <div id="4" class="wf2" style="display:none">
+        <br>
+        <h2>Hello!</h2>
+        <button type="button" onclick="changepw_1()">Change Password</button>
+        <button type="button" onclick="user_logout()">Logout</button> <br><br>
+        Which information you want to show? <br><br>
+        <button type="button" onclick="showLocation()">Show all locations</button><br><br>
+        <button type="button" onclick="showUser()">Show all users</button> <br><br>
+        <button type="button" onclick="showUserLocation()">Show all user locations</button> <br><br>
+        <button type="button" onclick="showLocationTime()">Show all location times</button> <br><br>
+        <button type="button" onclick="showLocationComment()">Show all location comments</button> <br><br>
+        <button type="button" onclick="hide_location()">Hide</button><br><br>
+        <div id="rs" align="center"><div id="table_result"></div></div><br><br>
+        Other actions<br><br>
+        <button type="button" onclick="update_weather()">Update weather information</button> <br><br>
+        <button type="button" onclick="crud()">Edit information</button>
+    </div>
+
+    <div id="5" class="wf1" style="display:none">
+        <br>
+        <h2>Change Password</h2>
+        <form name="changepwd">
+            Your old password: <input type="password" name="oldpassword"> <br><br>
+            Your new password: <input type="password" name="newpassword"> <br><br>
+            Your new password again: <input type="password" name="newpasswordagain"> <br><br>
+            <button type="button" onclick="change_password()">Confirm</button><br><br>
+            <p id="changepwd_result"></p>
+        </form>
+    </div>
+
+    <div id="6" style="display:none" align="center">
+        <span class="wf3" style="display: inline-block">
+            <h2>Location</h2>
+            <form name="newlocation">
+                <h3>Create location</h3>
+                Location ID: <input type="text" name="new_location_id"> <br><br>
+                Location Name: <input type="text" name="new_location_name"> <br><br>
+                Latitude: <input type="text" name="new_latitude"> <br><br>
+                Longtitude: <input type="text" name="new_longtitude"> <br><br>
+                <button type="button" onclick="new_location()">Create</button>
+            </form>
+            <form name="updatelocation">
+                <h3>Update location</h3>
+                Location ID: <input type="text" name="update_location_id"> <br><br>
+                Location Name: <input type="text" name="update_location_name"> <br><br>
+                Latitude: <input type="text" name="update_latitude"> <br><br>
+                Longtitude: <input type="text" name="update_longtitude"> <br><br>
+                <button type="button" onclick="update_location()">Update</button>
+            </form>
+            <form name="delloc">
+                <h3>Delete location</h3>
+                <input type="text" name="dellocation"> <br><br>
+                <button type="button" onclick="loc_delete()">Delete</button>
+            </form>
+        </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="wf3" style="display: inline-block">
+            <h2>User</h2>
+            <form name="newuser">
+                <h3>Create user</h3>
+                Username: <input type="text" name="username"> <br><br>
+                Password: <input type="password" name="pwd"> <br><br>
+                <button type="button" onclick="newUser()">Create</button>
+            </form>
+            <form name="updateuser">
+                <h3>Update user</h3>
+                User ID: <input type="text" name="admin_change_user_id"> <br><br>
+                User Name: <input type="text" name="admin_change_user_name"> <br><br>
+                Password: <input type="text" name="admin_change_user_password"> <br><br>
+                <button type="button" onclick="update_user()">Update User Information</button>
+            </form>
+            <form name="delusr">
+                <h3>Delete user</h3>
+                <input type="text" name="deluser"> <br><br>
+                <button type="button" onclick="user_delete()"> Delete</button>
+            </form>
+            <br><br>
+            <button type="button" onclick="user_logout()">Logout</button> <br>
+        </span>
+    </div>
+
+    <div id="7" class="wf1" style="display:none">
+        <br>
+        <h2>Change Password</h2>
+        <form name="changepwd">
+            Your old password: <input type="password" name="oldpassword"> <br><br>
+            Your new password: <input type="password" name="newpassword"> <br><br>
+            Your new password again: <input type="password" name="newpasswordagain"> <br><br>
+            <button type="button" onclick="change_password_1()">Confirm</button><br><br>
+            <p id="changepwd_result"></p>
+        </form>
+    </div>
+    <script>
+
+function newUser() { 
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({username: document.querySelector('[name = "username"]').value,
+        password: document.querySelector('[name = "pwd"]').value})
+    };
+    fetch('http://localhost:3000/newuser/', myrequest).then((e) => e.text()).then((e) => {
+        if(e === "User Generated!") {
+            document.getElementById('1').style.display = "none";
+            document.getElementById('2').style.display = "block";
+        }
+        else window.alert(e);
+    });
+}
+
+function user_login() {
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({username: document.querySelector('[name= "lusername"]').value,
+        password: document.querySelector('[name = "lpassword"]').value})
+    };
+    fetch('http://localhost:3000/userlogin/', myrequest).then((e) => e.text()).then((e) => {
+        if (e !== "This user does not exist!" && e !== "Wrong password!") {
+            document.querySelector('[name= "lusername"]').value = "";
+            document.querySelector('[name = "lpassword"]').value = "";
+            result = JSON.parse(e);
+            if (result.user_rank === 0) {
+                document.getElementById('1').style.display = "none";
+                document.getElementById('nm').innerHTML = "Hello, " + result.user_name;
+                document.getElementById('3').style.display = "block";
+            }
+            else {
+                document.getElementById('1').style.display = "none";
+                document.getElementById('4').style.display = "block";
+            }
+}       else window.alert(e);
+    });
+}
+
+function login_now(){
+    document.getElementById('1').style.display = "block";
+    document.getElementById('2').style.display = "none";
+}
+
+function changepw() {
+    document.getElementById('3').style.display = "none";
+    document.getElementById('4').style.display = "none";
+    document.getElementById('5').style.display = "block";
+}
+
+function user_logout() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/logout', myrequest).then((e) => e.text()).then((e) => {
+        document.getElementById('3').style.display = "none";
+        document.getElementById('4').style.display = "none";
+        document.getElementById('5').style.display = "none";
+        document.getElementById('6').style.display = "none";
+        document.getElementById('7').style.display = "none";
+        document.getElementById('1').style.display = "block";
+    })
+}
+
+function showLocation() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/location', myrequest).then((e) => e.text()).then((e) => {
+        hide_location();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 0; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x+1);
+            tr = e[x];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                    row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result").append(tb);
+    });
+}
+
+function hide_location() {
+    document.querySelector("#table_result").remove();
+    document.querySelector("#rs").innerHTML = '<div id="table_result"></div>';
+}
+
+function showLocation_1() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/location', myrequest).then((e) => e.text()).then((e) => {
+        hide_location();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 0; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                    row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function hide_location_1() {
+    document.querySelector("#table_result1").remove();
+    document.querySelector("#rs1").innerHTML = '<div id="table_result1"></div>';
+}
+
+function sortId(){
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationid', myrequest).then((e) => e.text()).then((e) => {
+        hide_location_1();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 1; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x-1];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function sortName(){
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationname', myrequest).then((e) => e.text()).then((e) => {
+        hide_location_1();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 1; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x-1];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                    row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function sortLatitude(){
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationlatitude', myrequest).then((e) => e.text()).then((e) => {
+        hide_location_1();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 1; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x-1];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                    row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function sortLongtitude(){
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationlongtitude', myrequest).then((e) => e.text()).then((e) => {
+        hide_location_1();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 1; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                    row.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function searchName(){
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({searchname: document.querySelector('[name = "searchname"]').value})
+        };
+    fetch('http://localhost:3000/searchname', myrequest).then((e) => e.text()).then((e) => {
+        hide_location_1();
+        let tb = document.createElement('table');
+        e = eval(e);
+        let row = tb.insertRow(0);
+        row.insertCell(0).innerHTML = ("Location ID");
+        row.insertCell(1).innerHTML = ("Location Name");
+        row.insertCell(2).innerHTML = ("Latitude");
+        row.insertCell(3).innerHTML = ("Longtitude");
+        for (x = 1; x <= e.length; x++) {
+            let y = -1;
+            let row = tb.insertRow(x);
+            tr = e[x];
+            for (td in tr) {
+                if (y > -1 && y < 4)
+                vrow.insertCell(y).innerHTML = (tr[td]);
+                y++;
+            }
+        }
+        document.querySelector("#table_result1").append(tb);
+    });
+}
+
+function show_favourite() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'},
+    };
+    fetch('http://localhost:3000/userfav', myrequest).then((e) => e.text()).then((e) => {
+        e = eval(e);
+        for (x = 0; x < e.length; x++) document.querySelector('#loc'+e[x]['location_id']).checked = true;
+    });
+}
+
+function show_location() {
+    document.querySelector('#myloc_button').innerHTML = '<button type = "button" onclick="show_location()">Get your data</button>      <button type = "button" onclick="submit_location()">Submit!</button><br><p id="fav_result"></p>';
+    document.querySelector('#myloc_checkbox').innerHTML = "";
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationidname', myrequest).then((e) => e.text()).then((e) => {
+        e = eval(e);
+        console.log(e);
+        for (x = 0; x < e.length; x++) document.querySelector('#myloc_checkbox').innerHTML +=  e[x]['location_name'] + '<input type="checkbox" name="locations" id="loc' + e[x]['location_id']+ '"><br>';
+        show_favourite();
+    });
+}
+
+function submit_location() {
+    let count = 1;
+    let inputarr = [];
+    while (document.querySelector('#loc'+count) != null) {
+        if (document.querySelector('#loc'+count).checked) inputarr.push(count);
+        count++;
+    }
+    const myrequest = {
+        method: "PUT",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({my_fav: inputarr})
+    };
+    fetch('http://localhost:3000/addfav', myrequest).then((e) => e.text()).then((e) => {
+        document.querySelector('#myloc_button').innerHTML = '<button type="button" onclick="show_location()">Favourite location data</button>';
+        document.querySelector('#myloc_checkbox').innerHTML = "";
+        alert("Submit successfully!")
+    });
+}
+
+function show_favourite_time() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'},
+    };
+    fetch('http://localhost:3000/favtime', myrequest).then((e) => e.text()).then((e) => {
+        if (e == "You have not logined in yet!")
+            alert(e);
+        else {
+            document.querySelector("#time_result").innerHTML = 'Name \t Temperature \t Relative Humidity \t Wind Direction \t Wind Speed \t Wind Guest \t Comments <br>'
+            e = eval(e);
+            for (x=0; x < e.length; x++)
+                document.querySelector("#time_result").innerHTML += e[x].location_name + '\t ' + e[x].temp + 
+                '\t' + e[x].relative_humidity + '\t' + e[x].wind_dir + '\t' +  e[x].wind_speed + 
+                '\t' + e[x].wind_gust +  ' <form><button type="button" name="sc'+ e[x].location_id + '" onclick="see_comment(' + e[x].location_id + ')">See Comment</button></form>' + '<br>';
+        }
+    });
+}
+
+function add_comment(locid) {
+    let content = document.querySelector('#newcomment'+locid).value;
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({location_id: locid, content: content})
+    };
+    fetch('http://localhost:3000/addcomment', myrequest).then((e) => hide_comment(locid));
+}
+
+function see_comment(locid) {
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({loc_id: locid})
+    };
+    fetch('http://localhost:3000/loccomment', myrequest).then((e) => e.text()).then((e) => {
+        e = eval(e);
+        let commentbox = document.createElement("div");
+        commentbox.id = "loccomment" + locid;
+        for (x = 0; x < e.length; x++) commentbox.innerHTML += e[x].comment + '<br>';
+        commentbox.innerHTML += '<input type="text" id="newcomment' + locid + '"> <button type="button" onclick="add_comment(' + locid + ')">Add Comment!</button>';
+        document.querySelector('[name= "sc' + locid +'"]').insertAdjacentElement('afterend',commentbox);
+        document.querySelector('[name= "sc' + locid +'"]').setAttribute('onclick', 'hide_comment(' + locid + ')');
+        document.querySelector('[name= "sc' + locid +'"]').innerHTML="Collapse";
+    });
+}
+
+function hide_comment(locid) {
+    document.querySelector('#loccomment'+locid).remove();
+    document.querySelector('[name= "sc' + locid +'"]').setAttribute('onclick','see_comment(' + locid + ')');
+    document.querySelector('[name= "sc' + locid +'"]').innerHTML="See Comment";
+}
+
+function changepw_1() {
+    document.getElementById('3').style.display = "none";
+    document.getElementById('4').style.display = "none";
+    document.getElementById('7').style.display = "block";
+}
+
+function showUser() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/user', myrequest).then((e) => e.text()).then((e) => {
+            hide_location();
+            let tb = document.createElement('table');
+            e = eval(e);
+            let row = tb.insertRow(0);
+            row.insertCell(0).innerHTML = ("User ID");
+            row.insertCell(1).innerHTML = ("User Name");
+            row.insertCell(2).innerHTML = ("User Password");
+            row.insertCell(3).innerHTML = ("User Rank");
+            for (x = 1; x <= e.length; x++) {
+                let y = -1;
+                let row = tb.insertRow(x);
+                tr = e[x];
+                for (td in tr) {
+                    if (y > -1 && y < 4)
+                        row.insertCell(y).innerHTML = (tr[td]);
+                    y++;
+                }
+            }
+        document.querySelector("#table_result").append(tb);
+    });
+}
+
+function showUserLocation() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/userlocation', myrequest).then((e) => e.text()).then((e) => {
+        hide_location();        
+            let tb = document.createElement('table');
+            e = eval(e);
+            let row = tb.insertRow(0);
+            row.insertCell(0).innerHTML = ("User ID");
+            row.insertCell(1).innerHTML = ("Location ID");
+            for (x = 1; x <= e.length; x++) {
+                let y = -1;
+                let row = tb.insertRow(x);
+                tr = e[x];
+                for (td in tr) {
+                    if (y > -1 && y < 2)
+                        row.insertCell(y).innerHTML = (tr[td]);
+                    y++;
+                }
+            }
+        document.querySelector("#table_result").append(tb);
+    });
+}
+
+function showLocationTime() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationtime', myrequest).then((e) => e.text()).then((e) => {
+        hide_location();
+            let tb = document.createElement('table');
+            e = eval(e);
+            let row = tb.insertRow(0);
+            row.insertCell(0).innerHTML = ("Location ID");
+            row.insertCell(1).innerHTML = ("Date Time");
+            row.insertCell(2).innerHTML = ("Temperature");
+            row.insertCell(3).innerHTML = ("Relative Humidity");
+            row.insertCell(4).innerHTML = ("Wind Direction");
+            row.insertCell(5).innerHTML = ("Wind Speed");
+            row.insertCell(5).innerHTML = ("Wind Gust");
+            for (x = 1; x <= e.length; x++) {
+                let y = -1;
+                let row = tb.insertRow(x);
+                tr = e[x];
+                for (td in tr) {
+                    if (y > -1 && y < 7)
+                        row.insertCell(y).innerHTML = (tr[td]);
+                    y++;
+                }
+            }
+        document.querySelector("#table_result").append(tb);
+    });
+}
+
+function showLocationComment() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'}
+    };
+    fetch('http://localhost:3000/locationcomment', myrequest).then((e) => e.text()).then((e) => {
+        hide_location();
+            let tb = document.createElement('table');
+            e = eval(e);
+            let row = tb.insertRow(0);
+            row.insertCell(0).innerHTML = ("Comment ID");
+            row.insertCell(1).innerHTML = ("User ID");
+            row.insertCell(2).innerHTML = ("Location ID");
+            row.insertCell(3).innerHTML = ("Comment");
+            for (x = 1; x <= e.length; x++) {
+                let y = -1;
+                let row = tb.insertRow(x);
+                tr = e[x];
+                for (td in tr) {
+                    if (y > -1 && y < 4)
+                        row.insertCell(y).innerHTML = (tr[td]);
+                    y++;
+                }
+            }
+        document.querySelector("#table_result").append(tb);
+    });
+}
+
+function update_weather() {
+    const myrequest = {
+        method: "GET",
+        headers: {'Content-Type':'application/json'},
+    };
+    fetch('http://localhost:3000/updateweather/', myrequest).then((e) => e.text()).then((e) => alert(e));
+}
+
+function crud() {
+    document.getElementById('4').style.display = "none";
+    document.getElementById('6').style.display = "block";
+}
+
+function change_password() {
+    if (document.querySelector('[name = "newpassword"]').value != document.querySelector('[name = "newpasswordagain"]').value)
+        alert("Please type your new password again");
+    else {
+        const myrequest = {
+            method: "POST",
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+            old_password: document.querySelector('[name = "oldpassword"]').value,
+            new_password: document.querySelector('[name = "newpassword"]').value
+            })
+        };
+        fetch('http://localhost:3000/changepassword', myrequest).then((e) => e.text()).then((e) => {
+            alert("Change successfully!");
+            document.getElementById('5').style.display = "none";
+            document.getElementById('3').style.display = "block";
+        });
+    }
+}
+
+function new_location() {
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({location_id: document.querySelector('[name = "new_location_id"]').value,
+            location_name: document.querySelector('[name = "new_location_name"]').value,
+            latitude: document.querySelector('[name = "new_latitude"]').value,
+            longtitude: document.querySelector('[name = "new_longtitude"]').value,
+        })
+    };
+    fetch('http://localhost:3000/newlocation/', myrequest).then((e) => e.text()).then((e) => alert(e));
+}
+
+function loc_delete() {
+    const myrequest = {
+        method: "DELETE",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({location_name: document.querySelector('[name="dellocation"]').value})
+    };
+    fetch('http://localhost:3000/deletelocation', myrequest).then((e) => e.text()).then((e) => alert(e));
+}
+
+function update_user() {
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            user_id: document.querySelector('[name = "admin_change_user_id"]').value,
+            user_name: document.querySelector('[name = "admin_change_user_name"]').value,
+            user_password: document.querySelector('[name = "admin_change_user_password"]').value,
+        })
+    };
+    fetch('http://localhost:3000/updateuser', myrequest).then((e) => e.text()).then((e) => {
+        document.querySelector('[name = "admin_change_user_id"]').value = '';
+        document.querySelector('[name = "admin_change_user_name"]').value = '';
+        document.querySelector('[name = "admin_change_user_password"]').value = '';
+        alert(e);
+    });
+}
+
+function user_delete() {
+    const myrequest = {
+        method: "DELETE",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({user_name: document.querySelector('[name="deluser"]').value})
+    };
+    fetch('http://localhost:3000/deleteuser', myrequest).then((e) => e.text()).then((e) => alert(e));
+}
+
+function change_password_1() {
+    if (document.querySelector('[name = "newpassword"]').value != document.querySelector('[name = "newpasswordagain"]').value)
+        alert("Please type your new password again");
+    else {
+        const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            old_password: document.querySelector('[name = "oldpassword"]').value,
+            new_password: document.querySelector('[name = "newpassword"]').value
+            })
+        };
+        fetch('http://localhost:3000/changepassword', myrequest).then((e) => e.text()).then((e) => {
+        alert("Change successfully!");
+        document.getElementById('5').style.display = "none";
+        document.getElementById('4').style.display = "block";
+        });
+    }
+}
+
+function update_location() {
+    const myrequest = {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+            location_id: document.querySelector('[name = "update_location_id"]').value,
+            location_name: document.querySelector('[name = "update_location_name"]').value,
+            latitude: document.querySelector('[name = "update_latitude"]').value,
+            longtitude: document.querySelector('[name = "update_longtitude"]').value,
+            })
+        };
+        fetch('http://localhost:3000/updatelocation', myrequest).then((e) => e.text()).then((e) => {
+        alert("Change successfully!");
+        document.querySelector('[name = "update_location_id"]').value = '';
+        document.querySelector('[name = "update_location_name"]').value = '';
+        document.querySelector('[name = "update_latitude"]').value = '';
+        document.querySelector('[name = "update_longtitude"]').value = '';
+        });
+}
+    </script>
+</body>
+</html>

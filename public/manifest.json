@@ -1,6 +1,6 @@
 {
-  "short_name": "Car Park Finder",
-  "name": "Car Park Finder",
+  "short_name": "Weather Finder",
+  "name": "Weather Finder",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
